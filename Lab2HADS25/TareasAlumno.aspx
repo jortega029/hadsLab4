@@ -21,7 +21,7 @@
         <asp:DropDownList ID="asignaturas" runat="server">
         </asp:DropDownList>
 
-        <asp:GridView ID="tablaFinal" runat="server" OnSorting="SortRecords" AllowSorting="True">
+        <asp:GridView ID="tablaFinal" runat="server">
             <Columns>
                 <asp:CommandField ButtonType="Button" SelectText="Instanciar" ShowSelectButton="True" />
             </Columns>

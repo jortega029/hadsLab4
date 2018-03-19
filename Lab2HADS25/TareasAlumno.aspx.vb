@@ -19,7 +19,7 @@ Public Class TareasAlumno
             Dim ds As New DataSet
             da.Fill(ds, "TareasGenericas")
             Dim dt = ds.Tables("tareasGenericas")
-
+            tablaFinal.AllowSorting = True
             tablaFinal.DataSource = dt
             tablaFinal.DataBind()
             Session("ds") = ds
@@ -51,55 +51,30 @@ Public Class TareasAlumno
         Response.Redirect("InstanciarTarea.aspx?tarea=" & codigo & "&usuario=" & usuario & "&horas=" & horas)
     End Sub
 
-    Protected Sub SortRecords(ByVal sender As Object, ByVal e As GridViewSortEventArgs)
-        Dim sortExpression As String = e.SortExpression
-        Dim direction As String = String.Empty
-
-        If SortDirection = SortDirection.Ascending Then
-
-            SortDirection = SortDirection.Descending
-
-            direction = " DESC"
-
-        Else
-
-            SortDirection = SortDirection.Ascending
-
-            direction = " ASC"
-
-        End If
-
-        Dim table As DataTable = Session("tabla")
-
-        table.DefaultView.Sort = sortExpression & direction
-
-        tablaFinal.DataSource = table
-
-        tablaFinal.DataBind()
-
-    End Sub
-
-
-
-    Public Property SortDirection() As SortDirection
-
+    Private Property orden() As String
         Get
-
-            If ViewState("SortDirection") Is Nothing Then
-
-                ViewState("SortDirection") = SortDirection.Ascending
-
-            End If
-
-            Return DirectCast(ViewState("SortDirection"), SortDirection)
-
+            Return ViewState("orden")
         End Get
 
-        Set(ByVal value As SortDirection)
-
-            ViewState("SortDirection") = value
-
+        Set(ByVal value As String)
+            ViewState("orden") = value
         End Set
 
     End Property
+
+    Protected Sub ordenar(sender As GridView, e As GridViewSortEventArgs) Handles tablaFinal.Sorting
+        If orden = "ASC" Then
+            orden = "DESC"
+        Else
+            orden = "ASC"
+        End If
+        Dim vista As New DataView
+        Dim dt As DataTable
+        dt = Session("tabla")
+        vista.Table = dt
+        vista.Sort = e.SortExpression & " " & orden
+        tablaFinal.DataSource = vista
+        tablaFinal.DataBind()
+    End Sub
+
 End Class

@@ -14,7 +14,7 @@
             <br />
             <br />
             <br />
-            <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/Profesor.aspx">Estadísticas</asp:HyperLink>
+            <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/Estadisticas.aspx">Estadísticas</asp:HyperLink>
             <br />
             <br />
             <br />
